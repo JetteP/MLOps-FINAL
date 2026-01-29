@@ -1,8 +1,9 @@
 import json
 import pickle
 import random
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
 
 TCGA_DIR = "tcga_data"
 OUTPUT_DIR = "data/splits"

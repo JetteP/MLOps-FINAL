@@ -38,3 +38,8 @@ ignore = ["E501", "B905"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+# --- PACKAGE DISCOVERY ---
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tcga_data*", "vllm*", "scripts*", "tests*", "data*"]
