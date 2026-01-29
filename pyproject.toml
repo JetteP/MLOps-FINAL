@@ -40,7 +40,6 @@ quote-style = "double"
 indent-style = "space"
 
 # --- PACKAGE DISCOVERY ---
-# Voorkomt dat data-mappen als Python-pakketten worden gezien
 [tool.setuptools.packages.find]
 where = ["."]
 exclude = ["tcga_data*", "vllm*", "scripts*", "tests*", "data*"]
