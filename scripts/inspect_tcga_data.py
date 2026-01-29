@@ -1,7 +1,8 @@
-import pickle
 import json
-import pandas as pd
+import pickle
+
 import numpy as np
+import pandas as pd
 
 TCGA_DIR = "tcga_data"
 
