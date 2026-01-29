@@ -14,12 +14,12 @@ from src.data.tcga_dataset import TCGADataset  # noqa: E402
 def main():
     # dit script is een snelle sanity check
     print("Loading TCGA Dataset...")
-    
+
     dataset = TCGADataset(
         split_json="data/splits/train.json",
         embeddings_path="tcga_data/tcga_titan_embeddings.pkl",
         labels_path="tcga_data/tcga_patient_to_cancer_type.csv",
-        label_map_path="data/label_map.json"
+        label_map_path="data/label_map.json",
     )
 
     print("Dataset loaded successfully!")
@@ -27,7 +27,7 @@ def main():
     print(f"Number of Classes: {len(dataset.label_map)}")
 
     dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
-    
+
     # we pakken één batch om te checken of alles klopt
     x_img, x_txt, y, pids = next(iter(dataloader))
 
@@ -36,7 +36,7 @@ def main():
     print(f"Feature shape (Image): {x_img.shape} (Expected: [32, 768])")
     print(f"Feature shape (Text):  {x_txt.shape} (Expected: [32, 768])")
     print(f"Labels shape:          {y.shape}     (Expected: [32])")
-    
+
     print("\nClass Mapping (first 5):")
     for i, (k, v) in enumerate(dataset.label_map.items()):
         if i >= 5:
