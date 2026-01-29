@@ -1,7 +1,9 @@
 import pickle
+
 import pandas as pd
 import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader, Dataset
+
 
 class TCGADataset(Dataset):
     """
@@ -9,7 +11,7 @@ class TCGADataset(Dataset):
     Expected data format: Pickled dictionary with patient IDs as keys.
     """
     def __init__(self, pickle_path: str, csv_path: str, class_to_idx=None):
-    	# TODO: add the text embeddings! Make sure they are aligned with the pid!
+        # TODO: add the text embeddings! Make sure they are aligned with the pid!
         # 1. Load the noised embeddings
         with open(pickle_path, 'rb') as f:
             self.embedding_data = pickle.load(f)
@@ -46,7 +48,7 @@ class TCGADataset(Dataset):
         
         # Retrieve an embedding (768-dim vector)
         # TODO: think what you're going to do with the patients that have more than 1 embedding
-	# That is, patients who have had more than 1 imaging done
+        # That is, patients who have had more than 1 imaging done
         embedding_list = self.embedding_data[pid]['embeddings']
         embedding_vector = embedding_list[0] 
         
@@ -76,13 +78,13 @@ def main():
     )
 
     # --- Verification ---
-    print(f"Dataset loaded successfully!")
+    print("Dataset loaded successfully!")
     print(f"Total Patients: {len(train_dataset)}")
     print(f"Number of Classes: {len(train_dataset.class_to_idx)}")
     
     # Peek at the first batch
     features, labels = next(iter(train_loader))
-    print(f"\nBatch Information:")
+    print("\nBatch Information:")
     print(f"Feature shape: {features.shape} (Expected: [{BATCH_SIZE}, 768])")
     print(f"Labels shape:  {labels.shape}  (Expected: [{BATCH_SIZE}])")
     
@@ -90,7 +92,8 @@ def main():
     print("\nClass Mapping (first 5):")
     for i, (name, idx) in enumerate(train_dataset.class_to_idx.items()):
         print(f"  {name}: {idx}")
-        if i == 4: break
+        if i == 4: 
+            break
 
 if __name__ == "__main__":
     main()

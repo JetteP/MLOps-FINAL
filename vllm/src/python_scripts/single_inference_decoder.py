@@ -1,6 +1,7 @@
 import argparse
-import sys
+
 from openai import OpenAI
+
 
 def run_single_inference(args):
     client = OpenAI(base_url=f"http://localhost:{args.port}/v1", api_key="token-vllm")
