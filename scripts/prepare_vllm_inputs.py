@@ -26,7 +26,6 @@ INPUT REPORT:
 """
 
 
-
 def main():
     # 1. Laad alle rapporten
     reports = {}
@@ -49,9 +48,8 @@ def main():
                     # Dit is de cruciale stap voor sectie 1.4
                     record = {
                         "pid": pid,
-                        "prompt": PROMPT_TEMPLATE.format(report=reports[pid])
+                        "prompt": PROMPT_TEMPLATE.format(report=reports[pid]),
                     }
-
 
                     out.write(json.dumps(record) + "\n")
 
