@@ -5,12 +5,26 @@ from pathlib import Path
 TCGA_DIR = "tcga_data"
 SPLIT_DIR = "data/splits"
 OUTPUT_DIR = "data/vllm_inputs"
-PROMPT_PREFIX = (
-    "You are an experienced clinical pathologist. "
-    "Rewrite the following diagnostic report into concise, structured "
-    "histopathological findings. Remove irrelevant administrative details. "
-    "Do not add new information or speculate.\n\nREPORT:\n"
-)
+PROMPT_TEMPLATE = """You are a clinical pathology assistant.
+
+TASK:
+Rewrite the given pathology report into a concise, standardized medical description for machine learning.
+
+RULES:
+Output ONLY the rewritten medical description.
+Do NOT include explanations, headings, bullet points, or markdown.
+Do NOT include <think> or any reasoning text.
+Return exactly 1–3 sentences.
+Preserve only medically relevant findings (tumor type, anatomical site, grade/differentiation, invasion, spread/metastasis if stated).
+Remove irrelevant or administrative text such as specimen handling details, formatting artifacts, and disclaimers.
+Do NOT add new facts or assumptions. If information is not present, do not invent it.
+Keep the output in 1–3 short sentences, using consistent medical wording.
+Output plain text only (no bullet points, no JSON).
+
+INPUT REPORT:
+{report}
+"""
+
 
 
 def main():
@@ -33,7 +47,12 @@ def main():
             for pid in pids:
                 if pid in reports:
                     # Dit is de cruciale stap voor sectie 1.4
-                    record = {"pid": pid, "prompt": PROMPT_PREFIX + reports[pid]}
+                    record = {
+                        "pid": pid,
+                        "prompt": PROMPT_TEMPLATE.format(report=reports[pid])
+                    }
+
+
                     out.write(json.dumps(record) + "\n")
 
         print(f"Gereed voor VLLM Decoder: {output_path}")

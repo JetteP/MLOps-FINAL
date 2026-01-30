@@ -6,3 +6,14 @@ experiments/results/
 .DS_Store
 *.egg-info/
 .venv/
+
+# vLLM generated decoder inputs
+data/vllm_inputs/*_decoder_input.jsonl
+
+# vLLM outputs + logs
+data/vllm_outputs/
+vllm_server.log
+vllm_batch_decoding*.log
+vllm_batch_encoding*.log
+vllm/src/slurm_jobs/*.log
+data/vllm_inputs/
