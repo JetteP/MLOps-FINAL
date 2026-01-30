@@ -41,8 +41,8 @@ echo "Embedding server is up! Starting processing..."
 # --- 3. Run Async Client ---
 apptainer exec --nv -B "$PWD" "$CONTAINER" \
   python3 vllm/src/python_scripts/batch_inference_encoder.py \
-  --input "./data/vllm_outputs/train_decoder_output.jsonl" \
-  --output "./data/vllm_outputs/train_text_embeddings.pkl" \
+  --input "./data/vllm_outputs/val_decoder_output.jsonl" \
+  --output "./data/vllm_outputs/val_text_embeddings.pkl" \
   --port $PORT \
   --is_query \
   --task_description "Given the following, what diagnosis is the text alluding to most likely? Answer as if you were an experienced expert pathologist." \
